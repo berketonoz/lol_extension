@@ -1,0 +1,2 @@
+# lol_extension
+This python code gets the last 100 match datas in 110 seconds because of riot API's limited access. One can simply hold the previous data in a csv and appends to the csv as the user plays new 100 games. I excluded all for one types of matches. So, learning rate is proportional to the user in terms of match types. Machine in this case learns by looking at our allies and the result in each match. KNN is used and best result is usually at when K=1,2. Feel free to contribute and predict your own next match :)
