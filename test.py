@@ -18,7 +18,7 @@ kartoffelsalat/Yigit Bugu
 AutumnWindRaider/Mert Murathanoglu
 """
 
-token = "?api_key=RGAPI-2ae800bb-b6aa-44f6-a94a-f903ae906481"
+token = "?api_key="
 host = "https://tr1.api.riotgames.com/"
 
 account_names = []
