@@ -16,9 +16,10 @@ from sklearn.metrics import accuracy_score
 McFarlane007/Ediz Oguz
 kartoffelsalat/Yigit Bugu
 AutumnWindRaider/Mert Murathanoglu
+SHIELDII/Batuhan Kuguoglu
 """
 
-token = "?api_key="
+token = "?api_key=RGAPI-f00e7fc1-5963-433b-a3d2-c995c7ed649a"
 host = "https://tr1.api.riotgames.com/"
 
 account_names = []
@@ -45,14 +46,15 @@ class LOL_Extension:
         counter = 0
         for match_id in dataa: #for each match
             counter+=1
-            if counter % 9 == 0:
+            if counter % 20 == 0:
+                return result,labels
                 #break
-                print("--------------------5 second break--------------------")
-                time.sleep(10)
-                print("--------------------Break is over--------------------")
+                """print("--------------------5 second break--------------------")
+                time.sleep(5)
+                print("--------------------Break is over--------------------")"""
             print("Counter: ", counter)
             resp = requests.get(self.host+"/lol/match/v4/matches/"+str(match_id)+self.token).json()
-            print("Response: ", resp)
+            #print("Response: ", resp)
             if "status" in resp: #this means we have requested too much
                 return result,labels
             champ_played = dataa[match_id]
@@ -78,7 +80,7 @@ champions = lol.GetChampions()
 
 encrypted_ids = lol.GetEncryptedAccountIds(account_names)
 matches = lol.GetMatches(encrypted_ids)
-infos,target = lol.GetMatchInfosandProcess(matches,"EforsuzBasit")
+infos,target = lol.GetMatchInfosandProcess(matches,"Elroid")
 data = [match["Allies"] for match in infos ]
 
 def ProcessData(data,target):
@@ -100,7 +102,13 @@ print(train_y)
 print(test_x)
 print(test_y)
 
-model_ent = DecisionTreeClassifier(criterion='entropy', max_depth=5,random_state=4)
+for i in range(1,20):
+    classifier = KNeighborsClassifier(n_neighbors=i)
+    classifier.fit(train_x, train_y)
+    y_pred = classifier.predict(test_x)
+    print("Accuracy using Entropy: %0.2f%%" %(accuracy_score(test_y, y_pred) * 100))
+
+"""model_ent = DecisionTreeClassifier(criterion='entropy', max_depth=5,random_state=4)
 model_ent.fit(train_x, train_y)
 
 model_gini = DecisionTreeClassifier(criterion='gini', max_depth=5,random_state=4)
@@ -112,4 +120,4 @@ print("Prediction: ", pred_y_ent)
 
 pred_y_gini = model_gini.predict(test_x)
 print("Accuracy using Gini: %0.2f%%" %(accuracy_score(test_y, pred_y_gini) * 100))
-print("Prediction: ", pred_y_gini)
+print("Prediction: ", pred_y_gini)"""
